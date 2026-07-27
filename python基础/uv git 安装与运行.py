@@ -4,7 +4,92 @@
 1.2以管理员身份打开PowerShell
 点击开始按钮或按键盘上的Windows键在搜索框中输入 "PowerShell"在搜索结果中右键单击 "Windows PowerShell"选择 "以管理员身份运行"
 1.3按官网提示安装，并通过重启后的PowerShell输入 uv –version，验证是否安装成功；
+1.4选择相应的版本python编译器就会配置相应的虚拟环境
+1.5常用操作及命令
+项目初始化与环境管理
+uv init my_project 在当前目录创建新的 Python 项目
+uv venv .venv 创建虚拟环境
+uv venv --python 3.12 指定 Python 版本创建虚拟环境
+uv python pin 3.12 锁定项目使用的 Python 版本
 
+包管理（核心功能）
+uv add <package> 安装包并添加到 pyproject.toml
+uv add <package>==版本号 安装指定版本
+uv add <package> --dev 安装为开发依赖
+uv sync 同步 pyproject.toml 中的依赖到虚拟环境
+uv remove <package> 移除包
+uv lock 生成/更新 uv.lock 锁定文件
+
+替代 pip 的命令
+uv pip install <package> 安装包（不写入 pyproject.toml）
+uv pip install -r requirements.txt 从 requirements.txt 安装
+uv pip uninstall <package> 卸载包
+uv pip freeze 列出已安装的包
+uv pip list 列出已安装的包及其版本
+uv pip show <package> 显示包详细信息
+uv pip check   检查依赖冲突
+uv pip compile 从 pyproject.toml 生成 requirements.txt
+
+# 1. 创建新项目
+uv init my_project
+cd my_project
+
+# 2. 创建虚拟环境
+uv venv
+
+# 3. 激活虚拟环境
+source .venv/bin/activate    # Linux/Mac
+.venv\Scripts\activate       # Windows
+
+# 4. 安装依赖
+uv add fastapi uvicorn
+
+# 5. 运行项目
+uv run uvicorn main:app --reload
+
+# 6. 安装开发依赖
+uv add pytest httpx --dev
+
+# 7. 同步依赖（确保环境一致）
+uv sync
+
+常用命令速查表
+uv init          # 初始化项目
+uv venv          # 创建虚拟环境
+uv add           # 添加依赖
+uv sync          # 同步依赖
+uv lock          # 锁定版本
+uv remove        # 移除依赖
+uv run           # 运行命令
+uv build         # 构建项目
+uv publish       # 发布到 PyPI
+uv pip install   # 传统 pip 风格安装
+uv tree          # 查看依赖树
+uv cache clean   # 清理缓存
+
+管理多个版本
+uv python list                  # 列出可用的 Python 版本
+uv python install 3.11 3.12     # 安装多个 Python 版本
+uv venv --python 3.11           # 指定 Python 版本创建环境
+
+加速安装
+# 使用镜像源（中国大陆）
+uv add flask --index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 或设置环境变量
+export UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+
+从requirements.txt 迁移
+# 自动检测并安装 requirements.txt 中的依赖
+uv add $(cat requirements.txt)
+
+# 或直接使用 pip 兼容模式
+uv pip install -r requirements.txt
+
+版本查看与帮助
+uv --version         # 查看版本
+uv --help            # 查看帮助
+uv <command> --help  # 查看具体命令的帮助
 
 2、git
 2.1官网：https://git-scm.com/install/windows
