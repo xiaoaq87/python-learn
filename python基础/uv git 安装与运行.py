@@ -20,8 +20,21 @@
 2.5验证设置
 在cmd窗口中输入git config --global core.editor，如果返回你设置的 PyCharm 路径，说明设置成功。
 2.6git常见命令
-（1）git clone 地址 ；复制git上其他的仓库 在所在文件夹，右键选择bash；
-（2）
+git clone <git地址>；复制git上其他的仓库 在所在文件夹，右键选择bash；
+初始化仓库：git init
+
+添加文件到暂存区：git add -A
+把暂存区的文件提交到仓库：git commit -m "提交信息"
+查看提交的历史记录：git log --stat
+
+工作区回滚：git checkout <filename>
+撤销最后一次提交：git reset HEAD^1
+
+以当前分支为基础新建分支：git checkout -b <branchname>
+列举所有的分支：git branch
+单纯地切换到某个分支：git checkout <branchname>
+删掉特定的分支：git branch -D <branchname>
+合并分支：git merge <branchname>
 
 3、为pycharm设置版本控制
 通过 Token 登录（推荐）
