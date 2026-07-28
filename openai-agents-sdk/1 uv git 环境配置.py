@@ -30,29 +30,6 @@ uv pip show <package> 显示包详细信息
 uv pip check   检查依赖冲突
 uv pip compile 从 pyproject.toml 生成 requirements.txt
 
-# 1. 创建新项目
-uv init my_project
-cd my_project
-
-# 2. 创建虚拟环境
-uv venv
-
-# 3. 激活虚拟环境
-source .venv/bin/activate    # Linux/Mac
-.venv\Scripts\activate       # Windows
-
-# 4. 安装依赖
-uv add fastapi uvicorn
-
-# 5. 运行项目
-uv run uvicorn main:app --reload
-
-# 6. 安装开发依赖
-uv add pytest httpx --dev
-
-# 7. 同步依赖（确保环境一致）
-uv sync
-
 常用命令速查表
 uv init          # 初始化项目
 uv venv          # 创建虚拟环境
@@ -73,17 +50,20 @@ uv python install 3.11 3.12     # 安装多个 Python 版本
 uv venv --python 3.11           # 指定 Python 版本创建环境
 
 加速安装
-# 使用镜像源（中国大陆）
+使用镜像源（中国大陆）
 uv add flask --index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-# 或设置环境变量
+或设置环境变量
 export UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
 
 从requirements.txt 迁移
-# 自动检测并安装 requirements.txt 中的依赖
+自动检测并安装 requirements.txt 中的依赖
 uv add $(cat requirements.txt)
 
-# 或直接使用 pip 兼容模式
+如果项目中没有 requirements.txt 文件，可以根据当前环境生成使用 pip freeze（生成全部依赖）
+uv pip freeze > requirements.txt
+
+或直接使用 pip 兼容模式
 uv pip install -r requirements.txt
 
 版本查看与帮助
@@ -129,10 +109,30 @@ git clone <git地址>；复制git上其他的仓库 在所在文件夹，右键�
 在 GitHub 网站上生成 Token（路径：Settings → Developer settings → Personal access tokens），勾选 repo 和 gist 权限
 将 Token 粘贴到 PyCharm 中，点击 Add Account
 
+4、环境配置
+4.1获取 DeepSeek API Key
+4.2配置环境变量
+在项目创建.env文件，并输入（要在.gitignore输入.env，以免github泄露相关信息）
+OPENAI_API_KEY=sk-your-deepseek-api-key
+OPENAI_BASE_URL=https://api.deepseek.com
+4.3在代码中配置sdk  详见相关py文件
 
+5、创建项目
+5.1创建新项目
+uv init my_project  初始化项目
+cd my_project       切换目录
 
+5.2创建虚拟环境
+uv venv     如果虚拟环境未指定pytion编译器，可以删除原虚拟环境rmdir /s .venv，再做如下
+uv venv --python C:\Users\你的用户名\AppData\Local\Programs\Python\Python312\python.exe
 
+5.3激活虚拟环境
+source .venv/bin/activate    # Linux/Mac
+.venv\Scripts\activate       # Windows
+deactivate 退出虚拟环境
 
+5.4安装依赖
+uv add <依赖包>
 
 
 """
